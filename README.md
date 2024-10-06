@@ -1,11 +1,9 @@
-# Hono getting started
-
-This is a basic Hono template already set up for local development and deployment to AWS Lambda.
+# API for retrieving the contract address from transaction
 
 ## Installation
 
 ```bash
-pnpm install
+bun install
 ```
 
 ## Update API logic
@@ -17,7 +15,7 @@ Entrypoint: `src/api/app.ts`
 To run as a local API server, run
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 ## Deployment
@@ -30,5 +28,5 @@ To deploy to AWS lambda:
 4. Update `PROFILE` in `package.json`'s `scripts.update` to use a non-default profile.
 5. Run
    ```bash
-   pnpm aws
+   bun aws
    ```

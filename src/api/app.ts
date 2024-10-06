@@ -1,24 +1,17 @@
 import { Hono } from "hono";
 import { logger } from "../utils/logger";
 import { cors } from "../utils/cors";
+import { getContractAddress } from "./solana-utils";
 
 const app = new Hono();
 app.use(logger());
 app.use("/*", cors());
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
-});
+app.get("/contract-address", (c) => {
+  const tx = c.req.header("tx") || "";
+  if (!tx) return c.json({ found: false, programId: "" });
 
-app.get("/names/:name", (c) => {
-  const name = c.req.param("name");
-  return c.json({ name });
-});
-
-app.post("/something", async (c) => {
-  console.log(`POST /something: ${await c.req.text()}`);
-  const body = await c.req.json();
-  return c.json(body);
+  return c.json(getContractAddress(tx));
 });
 
 export { app };

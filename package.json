@@ -1,0 +1,20 @@
+{
+  "name": "my-app",
+  "type": "module",
+  "scripts": {
+    "update": "FUNCTION_NAME=helloHono; PROFILE=default; aws lambda update-function-code --zip-file fileb://dist/lambda.zip --function-name $FUNCTION_NAME --profile $PROFILE",
+    "dev": "COLOR=true ALLOW_LOCAL=true tsx watch ./src/harness/nodejs.ts",
+    "build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/harness/aws.ts",
+    "zip": "zip -j lambda.zip dist/index.js; mv lambda.zip dist/",
+    "aws": "run-s build zip update"
+  },
+  "devDependencies": {
+    "@hono/node-server": "^1.12.1",
+    "esbuild": "^0.21.4",
+    "npm-run-all2": "^6.2.0",
+    "tsx": "^4.18.0"
+  },
+  "dependencies": {
+    "hono": "^4.5.8"
+  }
+}
